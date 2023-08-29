@@ -1,11 +1,11 @@
 interface IUserDeleteRequestDTO {
-    id: string;
+  id: string;
 }
 
 interface IUserDeleteResponseDTO {
-    name: string;
-    email: string;
-    message: string;
+  name: string;
+  email: string;
+  message: string;
 }
 
 export { IUserDeleteRequestDTO, IUserDeleteResponseDTO };

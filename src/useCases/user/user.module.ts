@@ -6,11 +6,11 @@ import { UserFindController } from "./find/user-find.controller";
 import { UserFindallController } from "./findall/user-findall.controller";
 
 const UserModule = CreateModule([
-    UserCreateController,
-    UserDeleteController,
-    UserUpdateController,
-    UserFindController,
-    UserFindallController,
+  UserCreateController,
+  UserDeleteController,
+  UserUpdateController,
+  UserFindController,
+  UserFindallController,
 ]);
 
 export { UserModule };

@@ -4,13 +4,13 @@ import { IEntity } from "./base.entity";
 
 @provide(User)
 class User implements IEntity {
-    id: string;
-    name!: string;
-    email!: string;
+  id: string;
+  name!: string;
+  email!: string;
 
-    constructor() {
-        this.id = randomUUID();
-    }
+  constructor() {
+    this.id = randomUUID();
+  }
 }
 
 export { User };

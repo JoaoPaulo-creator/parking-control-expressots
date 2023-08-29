@@ -3,16 +3,16 @@ import { IEntity } from "@entities/base.entity";
 
 @provideSingleton(InMemoryDB)
 class InMemoryDB {
-    private readonly USERDB: IEntity[] = [];
-    private readonly PARKINGSPOTDB: IEntity[] = [];
+  private readonly USERDB: IEntity[] = [];
+  private readonly PARKINGSPOTDB: IEntity[] = [];
 
-    public getUserDB(): IEntity[] {
-        return this.USERDB;
-    }
+  public getUserDB(): IEntity[] {
+    return this.USERDB;
+  }
 
-    public getParkingSpotDB(): IEntity[] {
-        return this.PARKINGSPOTDB;
-    }
+  public getParkingSpotDB(): IEntity[] {
+    return this.PARKINGSPOTDB;
+  }
 }
 
 export { InMemoryDB };

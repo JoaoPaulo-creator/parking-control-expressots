@@ -1,12 +1,12 @@
 interface IUserFindRequestDTO {
-    email: string;
+  email: string;
 }
 
 interface IUserFindResponseDTO {
-    id: string;
-    name: string;
-    email: string;
-    message: string;
+  id: string;
+  name: string;
+  email: string;
+  message: string;
 }
 
 export { IUserFindRequestDTO, IUserFindResponseDTO };

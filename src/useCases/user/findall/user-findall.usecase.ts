@@ -5,26 +5,26 @@ import { IFindAllUserResponseDTO } from "./user-findall.dto";
 
 @provide(FindAllUserUseCase)
 class FindAllUserUseCase {
-    constructor(private userRepository: UserRepository) {}
+  constructor(private userRepository: UserRepository) {}
 
-    execute(): IFindAllUserResponseDTO[] | null {
-        try {
-            const users = this.userRepository.findAll();
-            const response: IFindAllUserResponseDTO[] = [];
+  execute(): IFindAllUserResponseDTO[] | null {
+    try {
+      const users = this.userRepository.findAll();
+      const response: IFindAllUserResponseDTO[] = [];
 
-            users.forEach((user: User) => {
-                response.push({
-                    id: user.id,
-                    name: user.name,
-                    email: user.email,
-                });
-            });
+      users.forEach((user: User) => {
+        response.push({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        });
+      });
 
-            return response;
-        } catch (error: any) {
-            throw error;
-        }
+      return response;
+    } catch (error: any) {
+      throw error;
     }
+  }
 }
 
 export { FindAllUserUseCase };
