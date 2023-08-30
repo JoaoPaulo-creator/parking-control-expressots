@@ -1,4 +1,3 @@
-import { inject } from "inversify";
 import { provide } from "inversify-binding-decorators";
 import { IBaseRepository } from "./base-repository.interface";
 import { IEntity } from "@entities/base.entity";

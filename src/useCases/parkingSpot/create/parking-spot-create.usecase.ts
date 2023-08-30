@@ -8,10 +8,7 @@ import { ParkingSpot } from "@entities/parking-spot.entity";
 
 @provide(CreateParkingSpotUseCase)
 class CreateParkingSpotUseCase {
-  constructor(
-    private parkingRepository: ParkingSpotRepository,
-    private spot: ParkingSpot,
-  ) {}
+  constructor(private parkingRepository: ParkingSpotRepository) {}
 
   execute(
     payload: ICreateParkintSpotRequestDTO,
