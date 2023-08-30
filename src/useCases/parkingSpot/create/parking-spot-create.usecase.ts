@@ -1,11 +1,10 @@
 import { provide } from "inversify-binding-decorators";
-import { Report, StatusCode } from "@expressots/core";
 import {
   ICreateParkintSpotRequestDTO,
   ICreateParkintSpotResponseDTO,
 } from "./parking-spot-create.dto";
 import { ParkingSpotRepository } from "@repositories/parkingspot/parking-spot.repository";
-import { ParkingSpot } from "@entities/parking-spot";
+import { ParkingSpot } from "@entities/parking-spot.entity";
 
 @provide(CreateParkingSpotUseCase)
 class CreateParkingSpotUseCase {
@@ -17,41 +16,53 @@ class CreateParkingSpotUseCase {
   execute(
     payload: ICreateParkintSpotRequestDTO,
   ): ICreateParkintSpotResponseDTO | null {
-    this.spot.apartment = payload.apartment;
-    this.spot.block = payload.block;
-    this.spot.brandCar = payload.brandCar;
-    this.spot.colorCar = payload.colorCar;
-    this.spot.licensePlate = payload.licensePlate;
-    this.spot.modelCar = payload.modelCar;
-    this.spot.responsibleName = payload.responsibleName;
+    const {
+      apartment,
+      block,
+      brandCar,
+      colorCar,
+      licensePlate,
+      modelCar,
+      responsibleName,
+    } = payload;
 
-    const isSpotAvailable = this.parkingRepository.findByLicensePlate(
-      this.spot.licensePlate,
+    const spot = new ParkingSpot(
+      apartment,
+      block,
+      brandCar,
+      colorCar,
+      licensePlate,
+      modelCar,
+      responsibleName,
     );
 
-    console.log("plate from use case: ", this.spot.licensePlate);
-    console.log(isSpotAvailable);
+    const isSpotSelected = this.parkingRepository.create(spot);
+    // if (isSpotAvailable) {
+    //   Report.Error(
+    //     "Spot is not available",
+    //     StatusCode.UnprocessableEntity,
+    //     "create-parking-spot-usecase",
+    //   );
+    // }
 
-    if (isSpotAvailable) {
-      Report.Error(
-        "Spot is not available",
-        StatusCode.UnprocessableEntity,
-        "create-parking-spot-usecase",
-      );
+    let response: ICreateParkintSpotResponseDTO;
+
+    if (isSpotSelected) {
+      response = {
+        id: isSpotSelected.id,
+        apartment: isSpotSelected.apartment,
+        block: isSpotSelected.block,
+        brandCar: isSpotSelected.brandCar,
+        colorCar: isSpotSelected.colorCar,
+        licensePlate: isSpotSelected.licensePlate,
+        modelCar: isSpotSelected.modelCar,
+        responsibleName: isSpotSelected.responsibleName,
+      };
+
+      return response;
     }
 
-    this.parkingRepository.create(this.spot);
-
-    return {
-      id: this.spot.id,
-      apartment: this.spot.apartment,
-      block: this.spot.block,
-      brandCar: this.spot.brandCar,
-      colorCar: this.spot.colorCar,
-      licensePlate: this.spot.licensePlate,
-      modelCar: this.spot.modelCar,
-      responsibleName: this.spot.responsibleName,
-    };
+    return null;
   }
 }
 
