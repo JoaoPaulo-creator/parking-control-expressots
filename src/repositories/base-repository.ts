@@ -1,56 +1,53 @@
-import { inject } from "inversify";
 import { provide } from "inversify-binding-decorators";
 import { IBaseRepository } from "./base-repository.interface";
 import { IEntity } from "@entities/base.entity";
-import { InMemoryDB } from "@providers/db-in-memory/db-in-memory.provider";
+import { ObjectType, Repository } from "typeorm";
+import { TypeORMProvider } from "@providers/orm/typeorm/typeorm.provider";
 
 @provide(BaseRepository)
 class BaseRepository<T extends IEntity> implements IBaseRepository<T> {
-  @inject(InMemoryDB) private inMemoryDB!: InMemoryDB;
-
-  protected get USERDB(): T[] {
-    return [...this.inMemoryDB.getParkingSpotDB()] as T[];
+  protected entityClass!: ObjectType<T>;
+  protected getRepository(): Repository<T> {
+    return TypeORMProvider.dataSource.getRepository(this.entityClass);
   }
 
   create(item: T): T | null {
-    const existingItem = this.USERDB.find((user) => user.id === item.id);
-    if (existingItem) {
-      throw new Error(`Object with id ${item.id} already exists`);
-    }
-
-    this.inMemoryDB.getParkingSpotDB().push(item);
+    const repository = this.getRepository();
+    repository.save(item);
     return item;
   }
 
-  delete(id: string): boolean {
-    const db = this.inMemoryDB.getParkingSpotDB();
-    const index: number = db.findIndex((item) => item.id === id);
-
-    if (index !== -1) {
-      db.splice(index, 1);
-      return true;
-    }
-    return false;
-  }
-
   update(item: T): T | null {
-    const db = this.inMemoryDB.getParkingSpotDB();
-    const index: number = db.findIndex((i) => i.id === item.id);
+    const repository = this.getRepository();
+    repository.save(item);
 
-    if (index !== -1) {
-      db[index] = item;
-      return item;
-    }
-    return null;
+    return item;
   }
 
-  find(id: string): T | null {
-    const user = this.USERDB.find((item) => item.id === id);
-    return user || null;
+  async delete(id: string): Promise<boolean> {
+    const repository = this.getRepository();
+    const res = await repository.delete(id);
+
+    return (
+      res.affected !== null && res.affected !== undefined && res.affected > 0
+    );
   }
 
-  findAll(): T[] {
-    return this.USERDB;
+  async find(id: string): Promise<T | null> {
+    const repository = this.getRepository();
+    const tableName = repository.metadata.tableName;
+    const result = await repository
+      .createQueryBuilder(tableName)
+      .where(`${tableName}.id = :id`, { id })
+      .getOne();
+
+    return result;
+  }
+
+  async findAll(): Promise<T[]> {
+    const repository = this.getRepository();
+    const spots = await repository.find();
+    return spots;
   }
 }
 
