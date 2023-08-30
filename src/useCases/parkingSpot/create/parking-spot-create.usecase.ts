@@ -34,13 +34,6 @@ class CreateParkingSpotUseCase {
     );
 
     const isSpotSelected = this.parkingRepository.create(spot);
-    // if (isSpotAvailable) {
-    //   Report.Error(
-    //     "Spot is not available",
-    //     StatusCode.UnprocessableEntity,
-    //     "create-parking-spot-usecase",
-    //   );
-    // }
 
     let response: ICreateParkintSpotResponseDTO;
 
