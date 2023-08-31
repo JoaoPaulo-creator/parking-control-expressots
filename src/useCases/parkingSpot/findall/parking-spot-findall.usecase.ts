@@ -1,6 +1,6 @@
 import { ParkingSpotRepository } from "@repositories/parkingspot/parking-spot.repository";
 import { provide } from "inversify-binding-decorators";
-import { IFindAllParkingSpotsResponseDTO } from "./parking-spot-findall.dto";
+import { IFindAllParkingSpotsResponseDTO } from "./parking-spot-findAll.dto";
 
 @provide(FindAllParkingSpotsUseCase)
 class FindAllParkingSpotsUseCase {

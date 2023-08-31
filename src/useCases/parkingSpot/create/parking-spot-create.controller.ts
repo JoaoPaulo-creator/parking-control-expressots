@@ -12,7 +12,7 @@ import {
 } from "./parking-spot-create.dto";
 
 @controller("/parking-spot/create")
-class ParkingSpotCreateController extends BaseController {
+class CreateParkingSpotController extends BaseController {
   constructor(private createParkingSpotUseCase: CreateParkingSpotUseCase) {
     super("create-parking-spot-controller");
   }
@@ -30,4 +30,4 @@ class ParkingSpotCreateController extends BaseController {
   }
 }
 
-export { ParkingSpotCreateController };
+export { CreateParkingSpotController };

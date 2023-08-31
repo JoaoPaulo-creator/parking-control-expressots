@@ -1,9 +1,9 @@
 import { BaseController, StatusCode } from "@expressots/core";
 import { controller, httpGet, response } from "inversify-express-utils";
-import { FindAllParkingSpotsUseCase } from "./parking-spot-findall.usecase";
+import { FindAllParkingSpotsUseCase } from "./parking-spot-findAll.usecase";
 
 @controller("/parking-spot/spots")
-class ParkingSpotFindAllController extends BaseController {
+class FindAllParkingSpotController extends BaseController {
   constructor(private findallSpotsUseCase: FindAllParkingSpotsUseCase) {
     super("find-all-spots-controller");
   }
@@ -18,4 +18,4 @@ class ParkingSpotFindAllController extends BaseController {
   }
 }
 
-export { ParkingSpotFindAllController };
+export { FindAllParkingSpotController };
