@@ -3,6 +3,8 @@ import { IBaseRepository } from "./base-repository.interface";
 import { IEntity } from "@entities/base.entity";
 import { ObjectType, Repository } from "typeorm";
 import { TypeORMProvider } from "@providers/orm/typeorm/typeorm.provider";
+import { ParkingSpot } from "@entities/parking-spot.entity";
+import { IParkingSpotDTO } from "./parkingspot/parking-spot.dto";
 
 @provide(BaseRepository)
 class BaseRepository<T extends IEntity> implements IBaseRepository<T> {
@@ -17,10 +19,18 @@ class BaseRepository<T extends IEntity> implements IBaseRepository<T> {
     return item;
   }
 
-  update(item: T): T | null {
+  // TODO: find a way to run updates
+  update(id: string, item: T): T | null {
     const repository = this.getRepository();
-    repository.save(item);
+    const tableName = repository.metadata.tableName;
+    repository
+      .createQueryBuilder(tableName)
+      .update(ParkingSpot)
+      .set({ licensePlate: "teste123" })
+      .where("id = :id", { id: id })
+      .execute();
 
+    repository.save(item);
     return item;
   }
 
