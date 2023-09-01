@@ -18,19 +18,28 @@ class BaseRepository<T extends IEntity> implements IBaseRepository<T> {
     return item;
   }
 
-  // TODO: find a way to run updates
-  update(id: string, item: T): T | null {
+  async update(id: string, item: T): Promise<T | null> {
     const repository = this.getRepository();
     const tableName = repository.metadata.tableName;
-    repository
-      .createQueryBuilder(tableName)
-      .update(ParkingSpot)
-      .set(item)
-      .where("id = :id", { id: id })
-      .execute();
 
-    repository.save(item);
-    return item;
+    const spotExists = repository
+      .createQueryBuilder(tableName)
+      .where(`${tableName}.id = :id`, { id })
+      .getOne();
+
+    if (await spotExists) {
+      repository
+        .createQueryBuilder(tableName)
+        .update(ParkingSpot)
+        .set(item)
+        .where("id = :id", { id: id })
+        .execute();
+
+      repository.save(item);
+      return item;
+    }
+
+    return null;
   }
 
   async delete(id: string): Promise<boolean> {

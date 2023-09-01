@@ -24,7 +24,7 @@ class UpdateParkingSpotController extends BaseController {
     @requestBody() payload: IUpdateParkingSpotRequestDTO,
     @response() res: any,
   ) {
-    return this.callUseCase(
+    return this.callUseCaseAsync(
       this.updateParkingSpotUseCase.execute(id, payload),
       res,
       StatusCode.OK,

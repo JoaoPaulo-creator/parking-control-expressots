@@ -10,11 +10,11 @@ import {
 class UpdateParkingSpotUseCase {
   constructor(private parkingSpotRepository: ParkingSpotRepository) {}
 
-  execute(
+  async execute(
     param: IUpdateParkingSpotRequestParamDTO,
     payload: IUpdateParkingSpotRequestDTO,
-  ): IUpdateParkingSpotResponseDTO | null {
-    const spot = this.parkingSpotRepository.update(param.id, payload);
+  ): Promise<IUpdateParkingSpotResponseDTO | null> {
+    const spot = await this.parkingSpotRepository.update(param.id, payload);
 
     console.log(payload);
 
