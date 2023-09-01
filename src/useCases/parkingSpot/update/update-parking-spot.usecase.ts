@@ -23,7 +23,7 @@ class UpdateParkingSpotUseCase {
         id: spot.id,
         apartment: spot.apartment,
         block: spot.block,
-        brandCar: spot.block,
+        brandCar: spot.brandCar,
         modelCar: spot.modelCar,
         colorCar: spot.colorCar,
         licensePlate: spot.licensePlate,

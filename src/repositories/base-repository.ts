@@ -25,7 +25,7 @@ class BaseRepository<T extends IEntity> implements IBaseRepository<T> {
     repository
       .createQueryBuilder(tableName)
       .update(ParkingSpot)
-      .set({ licensePlate: "teste123" })
+      .set(item)
       .where("id = :id", { id: id })
       .execute();
 
