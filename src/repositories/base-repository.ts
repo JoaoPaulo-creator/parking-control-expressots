@@ -4,7 +4,6 @@ import { IEntity } from "@entities/base.entity";
 import { ObjectType, Repository } from "typeorm";
 import { TypeORMProvider } from "@providers/orm/typeorm/typeorm.provider";
 import { ParkingSpot } from "@entities/parking-spot.entity";
-import { IParkingSpotDTO } from "./parkingspot/parking-spot.dto";
 
 @provide(BaseRepository)
 class BaseRepository<T extends IEntity> implements IBaseRepository<T> {
