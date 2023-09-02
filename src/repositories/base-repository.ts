@@ -12,10 +12,10 @@ class BaseRepository<T extends IEntity> implements IBaseRepository<T> {
     return TypeORMProvider.dataSource.getRepository(this.entityClass);
   }
 
-  create(item: T): T | null {
+  async create(item: T): Promise<T | null> {
     const repository = this.getRepository();
-    repository.save(item);
-    return item;
+    const savedItem = await repository.save(item);
+    return savedItem;
   }
 
   async update(id: string, item: T): Promise<T | null> {

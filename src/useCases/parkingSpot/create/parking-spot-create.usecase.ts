@@ -10,9 +10,9 @@ import { ParkingSpot } from "@entities/parking-spot.entity";
 class CreateParkingSpotUseCase {
   constructor(private parkingRepository: ParkingSpotRepository) {}
 
-  execute(
+  async execute(
     payload: ICreateParkintSpotRequestDTO,
-  ): ICreateParkintSpotResponseDTO | null {
+  ): Promise<ICreateParkintSpotResponseDTO | null> {
     const {
       apartment,
       block,
@@ -33,8 +33,7 @@ class CreateParkingSpotUseCase {
       responsibleName,
     );
 
-    const isSpotSelected = this.parkingRepository.create(spot);
-
+    const isSpotSelected = await this.parkingRepository.create(spot);
     let response: ICreateParkintSpotResponseDTO;
 
     if (isSpotSelected) {

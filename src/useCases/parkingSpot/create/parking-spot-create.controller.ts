@@ -18,11 +18,11 @@ class CreateParkingSpotController extends BaseController {
   }
 
   @httpPost("/")
-  execute(
+  async execute(
     @requestBody() payload: ICreateParkintSpotRequestDTO,
     @response() res: Response,
-  ): ICreateParkintSpotResponseDTO {
-    return this.callUseCase(
+  ): Promise<ICreateParkintSpotResponseDTO> {
+    return this.callUseCaseAsync(
       this.createParkingSpotUseCase.execute(payload),
       res,
       StatusCode.Created,
