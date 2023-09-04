@@ -2,6 +2,11 @@ import { provide } from "inversify-binding-decorators";
 import { IEntity } from "./base.entity";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
+type SpotProps = {
+  isAvailable: boolean;
+  number: number;
+};
+
 @provide(ParkingSpot)
 @Entity()
 class ParkingSpot implements IEntity {
@@ -29,6 +34,16 @@ class ParkingSpot implements IEntity {
   @Column()
   responsibleName!: string;
 
+  @Column({
+    nullable: true,
+  })
+  isAvailable?: boolean;
+
+  @Column({
+    nullable: true,
+  })
+  number?: number;
+
   constructor(
     apartment: string,
     block: string,
@@ -37,6 +52,8 @@ class ParkingSpot implements IEntity {
     licensePlate: string,
     modelCar: string,
     responsibleName: string,
+    isAvailable?: boolean,
+    number?: number,
   ) {
     this.apartment = apartment;
     this.block = block;
@@ -45,6 +62,8 @@ class ParkingSpot implements IEntity {
     this.licensePlate = licensePlate;
     this.modelCar = modelCar;
     this.responsibleName = responsibleName;
+    this.isAvailable = isAvailable;
+    this.number = number;
   }
 }
 

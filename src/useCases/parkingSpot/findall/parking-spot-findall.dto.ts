@@ -7,6 +7,8 @@ interface IFindAllParkingSpotsResponseDTO {
   licensePlate: string;
   modelCar: string;
   responsibleName: string;
+  isAvailable?: boolean;
+  number?: number;
 }
 
 export { IFindAllParkingSpotsResponseDTO };

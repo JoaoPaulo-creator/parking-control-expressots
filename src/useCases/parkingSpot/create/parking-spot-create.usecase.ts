@@ -21,6 +21,8 @@ class CreateParkingSpotUseCase {
       licensePlate,
       modelCar,
       responsibleName,
+      isAvailable,
+      number,
     } = payload;
 
     const spot = new ParkingSpot(
@@ -31,6 +33,8 @@ class CreateParkingSpotUseCase {
       licensePlate,
       modelCar,
       responsibleName,
+      isAvailable,
+      number,
     );
 
     const isSpotSelected = await this.parkingRepository.create(spot);
@@ -46,6 +50,8 @@ class CreateParkingSpotUseCase {
         licensePlate: isSpotSelected.licensePlate,
         modelCar: isSpotSelected.modelCar,
         responsibleName: isSpotSelected.responsibleName,
+        isAvailable: isSpotSelected.isAvailable,
+        number: isSpotSelected.number,
       };
 
       return response;

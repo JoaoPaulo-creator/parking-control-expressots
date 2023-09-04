@@ -20,6 +20,8 @@ class FindAllParkingSpotsUseCase {
         colorCar: s.colorCar,
         licensePlate: s.licensePlate,
         responsibleName: s.responsibleName,
+        isAvailable: s.isAvailable,
+        number: s.number,
       });
     });
 

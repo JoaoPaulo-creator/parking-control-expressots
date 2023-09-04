@@ -11,6 +11,8 @@ interface IFindOneParkingSpotResponseDTO {
   licensePlate: string;
   modelCar: string;
   responsibleName: string;
+  isAvailable?: boolean;
+  number?: number;
 }
 
 export { IFindOneParkingSpotResponseDTO, IFindOneParkingSpotRequestDTO };

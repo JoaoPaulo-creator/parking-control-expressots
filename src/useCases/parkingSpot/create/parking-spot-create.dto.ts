@@ -11,6 +11,8 @@ interface ICreateParkintSpotRequestDTO {
   licensePlate: string;
   modelCar: string;
   responsibleName: string;
+  isAvailable?: boolean;
+  number?: number;
 }
 
 interface ICreateParkintSpotResponseDTO {
@@ -22,6 +24,8 @@ interface ICreateParkintSpotResponseDTO {
   licensePlate: string;
   modelCar: string;
   responsibleName: string;
+  isAvailable?: boolean;
+  number?: number;
 }
 
 export { ICreateParkintSpotRequestDTO, ICreateParkintSpotResponseDTO };

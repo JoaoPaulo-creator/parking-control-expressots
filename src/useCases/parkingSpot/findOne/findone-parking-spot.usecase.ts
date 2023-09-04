@@ -24,6 +24,8 @@ class FindOneParkingSpotUseCase {
         colorCar: spot.colorCar,
         licensePlate: spot.licensePlate,
         responsibleName: spot.responsibleName,
+        isAvailable: spot.isAvailable,
+        number: spot.number,
       };
     }
 
