@@ -1,4 +1,5 @@
 import { ParkingSpot } from "@entities/parking-spot.entity";
+import { Spot } from "@entities/spot.entity";
 import { DataSourceOptions } from "typeorm";
 
 const postgresDBConfig: DataSourceOptions = {
@@ -9,7 +10,7 @@ const postgresDBConfig: DataSourceOptions = {
   password: "banco123",
   database: "parkingspot",
   synchronize: true,
-  entities: [ParkingSpot],
+  entities: [ParkingSpot, Spot],
 };
 
 export { postgresDBConfig as PostgresDBConfig };

@@ -1,6 +1,9 @@
-interface ParkingSpotProps {
-  number: number;
-  isParkingSpotAvailable: boolean;
+import { Spot } from "@entities/spot.entity";
+
+interface SpotProps {
+  id: string;
+  isAvailable?: boolean;
+  number?: number;
 }
 
 interface ICreateParkintSpotRequestDTO {
@@ -11,8 +14,7 @@ interface ICreateParkintSpotRequestDTO {
   licensePlate: string;
   modelCar: string;
   responsibleName: string;
-  isAvailable?: boolean;
-  number?: number;
+  spot: SpotProps;
 }
 
 interface ICreateParkintSpotResponseDTO {
@@ -24,8 +26,7 @@ interface ICreateParkintSpotResponseDTO {
   licensePlate: string;
   modelCar: string;
   responsibleName: string;
-  isAvailable?: boolean;
-  number?: number;
+  spot?: Spot;
 }
 
 export { ICreateParkintSpotRequestDTO, ICreateParkintSpotResponseDTO };

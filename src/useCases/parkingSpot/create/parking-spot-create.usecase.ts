@@ -21,11 +21,10 @@ class CreateParkingSpotUseCase {
       licensePlate,
       modelCar,
       responsibleName,
-      isAvailable,
-      number,
+      spot,
     } = payload;
 
-    const spot = new ParkingSpot(
+    const spotInstance = new ParkingSpot(
       apartment,
       block,
       brandCar,
@@ -33,11 +32,10 @@ class CreateParkingSpotUseCase {
       licensePlate,
       modelCar,
       responsibleName,
-      isAvailable,
-      number,
+      spot,
     );
 
-    const isSpotSelected = await this.parkingRepository.create(spot);
+    const isSpotSelected = await this.parkingRepository.create(spotInstance);
     let response: ICreateParkintSpotResponseDTO;
 
     if (isSpotSelected) {
@@ -50,14 +48,17 @@ class CreateParkingSpotUseCase {
         licensePlate: isSpotSelected.licensePlate,
         modelCar: isSpotSelected.modelCar,
         responsibleName: isSpotSelected.responsibleName,
-        isAvailable: isSpotSelected.isAvailable,
-        number: isSpotSelected.number,
+        spot: {
+          id: isSpotSelected.spot!.id,
+          isAvailable: isSpotSelected.spot?.isAvailable,
+          number: isSpotSelected.spot?.number,
+        },
       };
 
       return response;
     }
 
-    return null;
+    return isSpotSelected;
   }
 }
 
