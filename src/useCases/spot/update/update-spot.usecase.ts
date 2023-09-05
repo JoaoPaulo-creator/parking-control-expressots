@@ -18,7 +18,10 @@ class UpdateSpotUseCase {
     isAvailable: boolean | undefined;
     number: number | undefined;
   } | null> {
-    const spot = await this.spotRepository.updateSpot(param.id, payload);
+    const spot = await this.spotRepository.updateSpot(
+      param.id,
+      payload.isAvailabe,
+    );
 
     if (spot) {
       return {
