@@ -8,6 +8,15 @@ class ParkingSpotRepository extends BaseRepository<ParkingSpot> {
     super();
     this.entityClass = ParkingSpot;
   }
+
+  async findAllWithRelationship(): Promise<ParkingSpot[]> {
+    const repository = this.getRepository();
+    const spots = await repository
+      .createQueryBuilder("parking_spot")
+      .leftJoinAndSelect("parking_spot.spot", "spot")
+      .getMany();
+    return spots;
+  }
 }
 
 export { ParkingSpotRepository };
