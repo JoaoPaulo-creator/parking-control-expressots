@@ -5,10 +5,19 @@ import {
 } from "./parking-spot-create.dto";
 import { ParkingSpotRepository } from "@repositories/parkingspot/parking-spot.repository";
 import { ParkingSpot } from "@entities/parking-spot.entity";
+import { SpotRepository } from "@repositories/spot/spot.repository";
 
 @provide(CreateParkingSpotUseCase)
 class CreateParkingSpotUseCase {
-  constructor(private parkingRepository: ParkingSpotRepository) {}
+  constructor(
+    private parkingRepository: ParkingSpotRepository,
+    private spotRepository: SpotRepository,
+  ) {}
+
+  private async setSpotAsUnavailable(spotId: string, isAvailable: boolean) {
+    const spot = this.spotRepository.updateSpot(spotId, isAvailable);
+    return spot;
+  }
 
   async execute(
     payload: ICreateParkintSpotRequestDTO,
@@ -34,11 +43,18 @@ class CreateParkingSpotUseCase {
       responsibleName,
       spot,
     );
+    const isSpotAvailable = await this.spotRepository.find(spot.id);
+
+    if (!isSpotAvailable!.isAvailable) {
+      throw new Error("Spot is not available");
+    }
 
     const isSpotSelected = await this.parkingRepository.create(spotInstance);
     let response: ICreateParkintSpotResponseDTO;
 
     if (isSpotSelected) {
+      this.setSpotAsUnavailable(spot.id, false);
+
       response = {
         id: isSpotSelected.id,
         apartment: isSpotSelected.apartment,
