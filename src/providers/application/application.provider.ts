@@ -1,6 +1,6 @@
-import { Application, Environments, LogLevel, log } from "@expressots/core";
-import { TypeORMProvider } from "@providers/orm/typeorm/typeorm.provider";
-import { provide } from "inversify-binding-decorators";
+import { Application, Environments, LogLevel, log } from '@expressots/core';
+import { TypeORMProvider } from '@providers/orm/typeorm/typeorm.provider';
+import { provide } from 'inversify-binding-decorators';
 
 @provide(App)
 class App extends Application {
@@ -14,7 +14,7 @@ class App extends Application {
   }
 
   protected serverShutdown(): void {
-    log(LogLevel.Info, "Server is shutting down", "logger-provider");
+    log(LogLevel.Info, 'Server is shutting down', 'logger-provider');
     super.serverShutdown();
   }
 }

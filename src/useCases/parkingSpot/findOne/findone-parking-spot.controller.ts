@@ -1,28 +1,28 @@
-import { BaseController, StatusCode } from "@expressots/core";
+import { BaseController, StatusCode } from '@expressots/core';
 import {
   controller,
   httpGet,
   requestParam,
   response,
-} from "inversify-express-utils";
-import { IFindOneParkingSpotRequestDTO } from "./findone-parking-spot.dto";
-import { FindOneParkingSpotUseCase } from "./findone-parking-spot.usecase";
+} from 'inversify-express-utils';
+import { IFindOneParkingSpotRequestDTO } from './findone-parking-spot.dto';
+import { FindOneParkingSpotUseCase } from './findone-parking-spot.usecase';
 
-@controller("/parking-spot")
+@controller('/parking-spot')
 class FindOneParkingSpotController extends BaseController {
   constructor(private findOneParkingSpotUseCase: FindOneParkingSpotUseCase) {
-    super("find-one-parking-spot-controller");
+    super('find-one-parking-spot-controller');
   }
 
-  @httpGet("/:id")
+  @httpGet('/:id')
   async execute(
     @requestParam() id: IFindOneParkingSpotRequestDTO,
-    @response() res: any,
+    @response() res: any
   ) {
     return this.callUseCaseAsync(
       this.findOneParkingSpotUseCase.execute(id),
       res,
-      StatusCode.OK,
+      StatusCode.OK
     );
   }
 }

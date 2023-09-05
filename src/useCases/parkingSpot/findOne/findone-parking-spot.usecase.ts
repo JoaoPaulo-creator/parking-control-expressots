@@ -1,31 +1,36 @@
-import { ParkingSpotRepository } from "@repositories/parkingspot/parking-spot.repository";
-import { provide } from "inversify-binding-decorators";
+import { ParkingSpotRepository } from '@repositories/parkingspot/parking-spot.repository';
+import { provide } from 'inversify-binding-decorators';
 import {
   IFindOneParkingSpotRequestDTO,
   IFindOneParkingSpotResponseDTO,
-} from "./findone-parking-spot.dto";
+} from './findone-parking-spot.dto';
 
 @provide(FindOneParkingSpotUseCase)
 class FindOneParkingSpotUseCase {
   constructor(private parkingSpotRepository: ParkingSpotRepository) {}
 
   async execute(
-    payload: IFindOneParkingSpotRequestDTO,
+    payload: IFindOneParkingSpotRequestDTO
   ): Promise<IFindOneParkingSpotResponseDTO | null> {
-    const spot = await this.parkingSpotRepository.find(payload.id);
+    const s = await this.parkingSpotRepository.findOneWithRelationship(
+      payload.id
+    );
 
-    if (spot) {
+    if (s) {
       return {
-        id: spot.id,
-        apartment: spot.apartment,
-        block: spot.block,
-        brandCar: spot.block,
-        modelCar: spot.modelCar,
-        colorCar: spot.colorCar,
-        licensePlate: spot.licensePlate,
-        responsibleName: spot.responsibleName,
-        isAvailable: spot.isAvailable,
-        number: spot.number,
+        id: s.id,
+        apartment: s.apartment,
+        block: s.block,
+        brandCar: s.block,
+        modelCar: s.modelCar,
+        colorCar: s.colorCar,
+        licensePlate: s.licensePlate,
+        responsibleName: s.responsibleName,
+        spot: {
+          id: s.spot!.id,
+          isAvailable: s.spot!.isAvailable,
+          number: s.spot!.number,
+        },
       };
     }
 

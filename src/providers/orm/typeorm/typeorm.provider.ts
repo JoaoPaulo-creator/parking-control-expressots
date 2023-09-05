@@ -1,7 +1,7 @@
-import { LogLevel, log } from "@expressots/core";
-import { DataSource } from "typeorm";
-import { PostgresDBConfig } from "./postgres/postgresdb";
-import { provide } from "inversify-binding-decorators";
+import { LogLevel, log } from '@expressots/core';
+import { DataSource } from 'typeorm';
+import { PostgresDBConfig } from './postgres/postgresdb';
+import { provide } from 'inversify-binding-decorators';
 
 @provide(TypeORMProvider)
 class TypeORMProvider {
@@ -15,15 +15,15 @@ class TypeORMProvider {
         .then(() => {
           log(
             LogLevel.Info,
-            "Database connection established",
-            "typeorm-provider-initialize",
+            'Database connection established',
+            'typeorm-provider-initialize'
           );
         })
         .catch((error: any) => {
-          log(LogLevel.Error, error, "typeorm-provider");
+          log(LogLevel.Error, error, 'typeorm-provider');
         });
     } catch (error: any) {
-      log(LogLevel.Error, error, "typeorm-provider");
+      log(LogLevel.Error, error, 'typeorm-provider');
     }
   }
 
@@ -35,15 +35,15 @@ class TypeORMProvider {
         .then(() => {
           log(
             LogLevel.Info,
-            "Database connection closed",
-            "typeorm-provider-destroy",
+            'Database connection closed',
+            'typeorm-provider-destroy'
           );
         })
         .catch((error) => {
-          log(LogLevel.Error, error, "typeorm-provider");
+          log(LogLevel.Error, error, 'typeorm-provider');
         });
     } catch (error: any) {
-      log(LogLevel.Error, error, "typeorm-provider");
+      log(LogLevel.Error, error, 'typeorm-provider');
     }
   }
 }

@@ -1,15 +1,15 @@
-import { BaseController, StatusCode } from "@expressots/core";
-import { controller, httpGet, response } from "inversify-express-utils";
-import { Response } from "express";
-import { AppUseCase } from "./app.usecase";
+import { BaseController, StatusCode } from '@expressots/core';
+import { controller, httpGet, response } from 'inversify-express-utils';
+import { Response } from 'express';
+import { AppUseCase } from './app.usecase';
 
-@controller("/")
+@controller('/')
 class AppController extends BaseController {
   constructor(private appUseCase: AppUseCase) {
-    super("app-controller");
+    super('app-controller');
   }
 
-  @httpGet("/")
+  @httpGet('/')
   execute(@response() res: Response): string {
     return this.callUseCase(this.appUseCase.execute(), res, StatusCode.OK);
   }

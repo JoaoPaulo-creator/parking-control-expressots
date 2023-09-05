@@ -1,10 +1,10 @@
-import { ParkingSpotRepository } from "@repositories/parkingspot/parking-spot.repository";
-import { provide } from "inversify-binding-decorators";
+import { ParkingSpotRepository } from '@repositories/parkingspot/parking-spot.repository';
+import { provide } from 'inversify-binding-decorators';
 import {
   IUpdateParkingSpotRequestDTO,
   IUpdateParkingSpotRequestParamDTO,
   IUpdateParkingSpotResponseDTO,
-} from "./update-parking-spot.dto";
+} from './update-parking-spot.dto';
 
 @provide(UpdateParkingSpotUseCase)
 class UpdateParkingSpotUseCase {
@@ -12,7 +12,7 @@ class UpdateParkingSpotUseCase {
 
   async execute(
     param: IUpdateParkingSpotRequestParamDTO,
-    payload: IUpdateParkingSpotRequestDTO,
+    payload: IUpdateParkingSpotRequestDTO
   ): Promise<IUpdateParkingSpotResponseDTO | null> {
     const spot = await this.parkingSpotRepository.update(param.id, payload);
 

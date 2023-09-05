@@ -1,13 +1,13 @@
-import { ParkingSpotRepository } from "@repositories/parkingspot/parking-spot.repository";
-import { provide } from "inversify-binding-decorators";
-import { IFindAllParkingSpotsResponseDTO } from "./parking-spot-findall.dto";
+import { ParkingSpotRepository } from '@repositories/parkingspot/parking-spot.repository';
+import { provide } from 'inversify-binding-decorators';
+import { IFindAllParkingSpotsResponseDTO } from './parking-spot-findall.dto';
 
 @provide(FindAllParkingSpotsUseCase)
 class FindAllParkingSpotsUseCase {
   constructor(private parkingRepository: ParkingSpotRepository) {}
 
   async execute(): Promise<IFindAllParkingSpotsResponseDTO[] | null> {
-    const spots = await this.parkingRepository.findAll();
+    const spots = await this.parkingRepository.findAllWithRelationship();
     const mappedSpots: IFindAllParkingSpotsResponseDTO[] = [];
 
     spots.forEach((s) => {
@@ -20,8 +20,11 @@ class FindAllParkingSpotsUseCase {
         colorCar: s.colorCar,
         licensePlate: s.licensePlate,
         responsibleName: s.responsibleName,
-        isAvailable: s.isAvailable,
-        number: s.number,
+        spot: {
+          id: s.spot!.id,
+          isAvailable: s.spot!.isAvailable,
+          number: s.spot!.number,
+        },
       });
     });
 
