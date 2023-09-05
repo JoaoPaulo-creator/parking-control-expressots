@@ -12,20 +12,25 @@ class FindOneParkingSpotUseCase {
   async execute(
     payload: IFindOneParkingSpotRequestDTO,
   ): Promise<IFindOneParkingSpotResponseDTO | null> {
-    const spot = await this.parkingSpotRepository.find(payload.id);
+    const s = await this.parkingSpotRepository.findOneWithRelationship(
+      payload.id,
+    );
 
-    if (spot) {
+    if (s) {
       return {
-        id: spot.id,
-        apartment: spot.apartment,
-        block: spot.block,
-        brandCar: spot.block,
-        modelCar: spot.modelCar,
-        colorCar: spot.colorCar,
-        licensePlate: spot.licensePlate,
-        responsibleName: spot.responsibleName,
-        isAvailable: spot.isAvailable,
-        number: spot.number,
+        id: s.id,
+        apartment: s.apartment,
+        block: s.block,
+        brandCar: s.block,
+        modelCar: s.modelCar,
+        colorCar: s.colorCar,
+        licensePlate: s.licensePlate,
+        responsibleName: s.responsibleName,
+        spot: {
+          id: s.spot!.id,
+          isAvailable: s.spot!.isAvailable,
+          number: s.spot!.number,
+        },
       };
     }
 
