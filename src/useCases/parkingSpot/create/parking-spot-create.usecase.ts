@@ -1,17 +1,17 @@
-import { provide } from "inversify-binding-decorators";
+import { provide } from 'inversify-binding-decorators';
 import {
   ICreateParkintSpotRequestDTO,
   ICreateParkintSpotResponseDTO,
-} from "./parking-spot-create.dto";
-import { ParkingSpotRepository } from "@repositories/parkingspot/parking-spot.repository";
-import { ParkingSpot } from "@entities/parking-spot.entity";
-import { SpotRepository } from "@repositories/spot/spot.repository";
+} from './parking-spot-create.dto';
+import { ParkingSpotRepository } from '@repositories/parkingspot/parking-spot.repository';
+import { ParkingSpot } from '@entities/parking-spot.entity';
+import { SpotRepository } from '@repositories/spot/spot.repository';
 
 @provide(CreateParkingSpotUseCase)
 class CreateParkingSpotUseCase {
   constructor(
     private parkingRepository: ParkingSpotRepository,
-    private spotRepository: SpotRepository,
+    private spotRepository: SpotRepository
   ) {}
 
   private async setSpotAsUnavailable(spotId: string, isAvailable: boolean) {
@@ -20,7 +20,7 @@ class CreateParkingSpotUseCase {
   }
 
   async execute(
-    payload: ICreateParkintSpotRequestDTO,
+    payload: ICreateParkintSpotRequestDTO
   ): Promise<ICreateParkintSpotResponseDTO | null> {
     const {
       apartment,
@@ -41,12 +41,12 @@ class CreateParkingSpotUseCase {
       licensePlate,
       modelCar,
       responsibleName,
-      spot,
+      spot
     );
     const isSpotAvailable = await this.spotRepository.find(spot.id);
 
     if (!isSpotAvailable!.isAvailable) {
-      throw new Error("Spot is not available");
+      throw new Error('Spot is not available');
     }
 
     const isSpotSelected = await this.parkingRepository.create(spotInstance);

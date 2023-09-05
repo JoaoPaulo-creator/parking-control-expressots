@@ -1,11 +1,11 @@
-import { provide } from "inversify-binding-decorators";
-import { IEntity } from "./base.entity";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { provide } from 'inversify-binding-decorators';
+import { IEntity } from './base.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @provide(Spot)
 @Entity()
 class Spot implements IEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column({

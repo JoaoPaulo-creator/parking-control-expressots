@@ -1,18 +1,18 @@
-import { provide } from "inversify-binding-decorators";
-import { IEntity } from "./base.entity";
+import { provide } from 'inversify-binding-decorators';
+import { IEntity } from './base.entity';
 import {
   Column,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { Spot } from "./spot.entity";
+} from 'typeorm';
+import { Spot } from './spot.entity';
 
 @provide(ParkingSpot)
 @Entity()
 class ParkingSpot implements IEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column()
@@ -48,7 +48,7 @@ class ParkingSpot implements IEntity {
     licensePlate: string,
     modelCar: string,
     responsibleName: string,
-    spot?: Spot,
+    spot?: Spot
   ) {
     this.apartment = apartment;
     this.block = block;

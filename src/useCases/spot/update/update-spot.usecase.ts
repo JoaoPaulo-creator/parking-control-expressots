@@ -1,10 +1,10 @@
-import { SpotRepository } from "@repositories/spot/spot.repository";
-import { provide } from "inversify-binding-decorators";
+import { SpotRepository } from '@repositories/spot/spot.repository';
+import { provide } from 'inversify-binding-decorators';
 import {
   IUpdateSpotRequest,
   IUpdateSpotRequestParam,
   IUpdateSpotResponseDTO,
-} from "./update-spot.dto";
+} from './update-spot.dto';
 
 @provide(UpdateSpotUseCase)
 class UpdateSpotUseCase {
@@ -12,7 +12,7 @@ class UpdateSpotUseCase {
 
   async execute(
     param: IUpdateSpotRequestParam,
-    payload: IUpdateSpotRequest,
+    payload: IUpdateSpotRequest
   ): Promise<{
     id: string;
     isAvailable: boolean | undefined;
@@ -20,7 +20,7 @@ class UpdateSpotUseCase {
   } | null> {
     const spot = await this.spotRepository.updateSpot(
       param.id,
-      payload.isAvailabe,
+      payload.isAvailabe
     );
 
     if (spot) {

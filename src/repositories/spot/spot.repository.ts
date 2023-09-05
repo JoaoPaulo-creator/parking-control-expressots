@@ -1,8 +1,8 @@
-import { ParkingSpot } from "@entities/parking-spot.entity";
-import { Spot } from "@entities/spot.entity";
-import { TypeORMProvider } from "@providers/orm/typeorm/typeorm.provider";
-import { BaseRepository } from "@repositories/base-repository";
-import { provide } from "inversify-binding-decorators";
+import { ParkingSpot } from '@entities/parking-spot.entity';
+import { Spot } from '@entities/spot.entity';
+import { TypeORMProvider } from '@providers/orm/typeorm/typeorm.provider';
+import { BaseRepository } from '@repositories/base-repository';
+import { provide } from 'inversify-binding-decorators';
 
 @provide(SpotRepository)
 class SpotRepository extends BaseRepository<Spot> {
@@ -31,7 +31,7 @@ class SpotRepository extends BaseRepository<Spot> {
         .set({
           isAvailable: spotStatus,
         })
-        .where("id = :id", { id: id })
+        .where('id = :id', { id: id })
         .execute();
 
       return spotExists;

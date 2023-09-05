@@ -1,6 +1,6 @@
-import { SpotRepository } from "@repositories/spot/spot.repository";
-import { provide } from "inversify-binding-decorators";
-import { IFindAllSpotResponseDTO } from "./find-all-spot.dto";
+import { SpotRepository } from '@repositories/spot/spot.repository';
+import { provide } from 'inversify-binding-decorators';
+import { IFindAllSpotResponseDTO } from './find-all-spot.dto';
 
 @provide(FindAllSpotsUseCase)
 class FindAllSpotsUseCase {

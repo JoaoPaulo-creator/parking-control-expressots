@@ -1,4 +1,4 @@
-import { BaseController, StatusCode } from "@expressots/core";
+import { BaseController, StatusCode } from '@expressots/core';
 import {
   controller,
   httpPatch,
@@ -6,26 +6,26 @@ import {
   requestBody,
   requestParam,
   response,
-} from "inversify-express-utils";
-import { UpdateSpotUseCase } from "./update-spot.usecase";
-import { IUpdateSpotRequest, IUpdateSpotRequestParam } from "./update-spot.dto";
+} from 'inversify-express-utils';
+import { UpdateSpotUseCase } from './update-spot.usecase';
+import { IUpdateSpotRequest, IUpdateSpotRequestParam } from './update-spot.dto';
 
-@controller("/spot")
+@controller('/spot')
 class UpadateSpotController extends BaseController {
   constructor(private updateSpotUseCase: UpdateSpotUseCase) {
-    super("update-spot-controller");
+    super('update-spot-controller');
   }
 
-  @httpPatch("/:id")
+  @httpPatch('/:id')
   async execute(
     @requestParam() id: IUpdateSpotRequestParam,
     @requestBody() payload: IUpdateSpotRequest,
-    @response() res: any,
+    @response() res: any
   ) {
     return this.callUseCaseAsync(
       this.updateSpotUseCase.execute(id, payload),
       res,
-      StatusCode.OK,
+      StatusCode.OK
     );
   }
 }

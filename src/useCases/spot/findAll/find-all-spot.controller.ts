@@ -1,19 +1,19 @@
-import { BaseController, StatusCode } from "@expressots/core";
-import { controller, httpGet, response } from "inversify-express-utils";
-import { FindAllSpotsUseCase } from "./find-all-spot.usecase";
+import { BaseController, StatusCode } from '@expressots/core';
+import { controller, httpGet, response } from 'inversify-express-utils';
+import { FindAllSpotsUseCase } from './find-all-spot.usecase';
 
-@controller("/spot-list")
+@controller('/spot-list')
 class FindAllSpotsController extends BaseController {
   constructor(private findAllUseCase: FindAllSpotsUseCase) {
-    super("find-all-spots-controller");
+    super('find-all-spots-controller');
   }
 
-  @httpGet("/")
+  @httpGet('/')
   async execute(@response() res: any) {
     return this.callUseCaseAsync(
       this.findAllUseCase.execute(),
       res,
-      StatusCode.OK,
+      StatusCode.OK
     );
   }
 }

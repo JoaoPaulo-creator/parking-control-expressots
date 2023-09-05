@@ -1,14 +1,14 @@
-import { provide } from "inversify-binding-decorators";
-import { ICreateSpotRequest, ICreateSpotResponseDTO } from "./create-spot.dto";
-import { SpotRepository } from "@repositories/spot/spot.repository";
-import { Spot } from "@entities/spot.entity";
+import { provide } from 'inversify-binding-decorators';
+import { ICreateSpotRequest, ICreateSpotResponseDTO } from './create-spot.dto';
+import { SpotRepository } from '@repositories/spot/spot.repository';
+import { Spot } from '@entities/spot.entity';
 
 @provide(CreateSpotUseCase)
 class CreateSpotUseCase {
   constructor(private spotRepository: SpotRepository) {}
 
   async execute(
-    payload: ICreateSpotRequest,
+    payload: ICreateSpotRequest
   ): Promise<ICreateSpotResponseDTO | null> {
     const { isAvailable, number } = payload;
     const spotInstance = new Spot(isAvailable, number);

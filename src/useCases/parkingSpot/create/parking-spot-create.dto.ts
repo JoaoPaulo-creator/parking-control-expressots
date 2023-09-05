@@ -1,4 +1,4 @@
-import { Spot } from "@entities/spot.entity";
+import { Spot } from '@entities/spot.entity';
 
 interface SpotProps {
   id: string;

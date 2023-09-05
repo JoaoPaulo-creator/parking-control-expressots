@@ -1,9 +1,9 @@
-import { provide } from "inversify-binding-decorators";
-import { IBaseRepository } from "./base-repository.interface";
-import { IEntity } from "@entities/base.entity";
-import { ObjectType, Repository } from "typeorm";
-import { TypeORMProvider } from "@providers/orm/typeorm/typeorm.provider";
-import { ParkingSpot } from "@entities/parking-spot.entity";
+import { provide } from 'inversify-binding-decorators';
+import { IBaseRepository } from './base-repository.interface';
+import { IEntity } from '@entities/base.entity';
+import { ObjectType, Repository } from 'typeorm';
+import { TypeORMProvider } from '@providers/orm/typeorm/typeorm.provider';
+import { ParkingSpot } from '@entities/parking-spot.entity';
 
 @provide(BaseRepository)
 class BaseRepository<T extends IEntity> implements IBaseRepository<T> {
@@ -32,7 +32,7 @@ class BaseRepository<T extends IEntity> implements IBaseRepository<T> {
         .createQueryBuilder(tableName)
         .update(ParkingSpot)
         .set(item)
-        .where("id = :id", { id: id })
+        .where('id = :id', { id: id })
         .execute();
 
       repository.save(item);

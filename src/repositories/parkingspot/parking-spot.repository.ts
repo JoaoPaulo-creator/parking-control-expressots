@@ -1,6 +1,6 @@
-import { ParkingSpot } from "@entities/parking-spot.entity";
-import { BaseRepository } from "@repositories/base-repository";
-import { provide } from "inversify-binding-decorators";
+import { ParkingSpot } from '@entities/parking-spot.entity';
+import { BaseRepository } from '@repositories/base-repository';
+import { provide } from 'inversify-binding-decorators';
 
 @provide(ParkingSpotRepository)
 class ParkingSpotRepository extends BaseRepository<ParkingSpot> {
@@ -12,8 +12,8 @@ class ParkingSpotRepository extends BaseRepository<ParkingSpot> {
   async findAllWithRelationship(): Promise<ParkingSpot[]> {
     const repository = this.getRepository();
     const spots = await repository
-      .createQueryBuilder("parking_spot")
-      .leftJoinAndSelect("parking_spot.spot", "spot")
+      .createQueryBuilder('parking_spot')
+      .leftJoinAndSelect('parking_spot.spot', 'spot')
       .getMany();
     return spots;
   }
@@ -21,9 +21,9 @@ class ParkingSpotRepository extends BaseRepository<ParkingSpot> {
   async findOneWithRelationship(id: string): Promise<ParkingSpot | null> {
     const repository = this.getRepository();
     const spots = await repository
-      .createQueryBuilder("parking_spot")
-      .leftJoinAndSelect("parking_spot.spot", "spot")
-      .where("parking_spot.id = :id", { id })
+      .createQueryBuilder('parking_spot')
+      .leftJoinAndSelect('parking_spot.spot', 'spot')
+      .where('parking_spot.id = :id', { id })
       .getOne();
     return spots;
   }

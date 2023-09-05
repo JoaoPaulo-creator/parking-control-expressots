@@ -1,28 +1,28 @@
-import { BaseController, StatusCode } from "@expressots/core";
+import { BaseController, StatusCode } from '@expressots/core';
 import {
   controller,
   httpDelete,
   requestParam,
   response,
-} from "inversify-express-utils";
-import { IDeleteParkingSpotRequestDTO } from "./delete-parking-spot.dto";
-import { DeleteParkingSpotUseCase } from "./delete-parking-spot.usecase";
+} from 'inversify-express-utils';
+import { IDeleteParkingSpotRequestDTO } from './delete-parking-spot.dto';
+import { DeleteParkingSpotUseCase } from './delete-parking-spot.usecase';
 
-@controller("/parking-spot")
+@controller('/parking-spot')
 class DeleteParkingSpotController extends BaseController {
   constructor(private findOneParkingSpotUseCase: DeleteParkingSpotUseCase) {
-    super("find-one-parking-spot-controller");
+    super('find-one-parking-spot-controller');
   }
 
-  @httpDelete("/:id")
+  @httpDelete('/:id')
   async execute(
     @requestParam() id: IDeleteParkingSpotRequestDTO,
-    @response() res: any,
+    @response() res: any
   ) {
     return this.callUseCaseAsync(
       this.findOneParkingSpotUseCase.execute(id),
       res,
-      StatusCode.NoContent,
+      StatusCode.NoContent
     );
   }
 }

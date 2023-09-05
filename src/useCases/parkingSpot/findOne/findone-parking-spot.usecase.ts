@@ -1,19 +1,19 @@
-import { ParkingSpotRepository } from "@repositories/parkingspot/parking-spot.repository";
-import { provide } from "inversify-binding-decorators";
+import { ParkingSpotRepository } from '@repositories/parkingspot/parking-spot.repository';
+import { provide } from 'inversify-binding-decorators';
 import {
   IFindOneParkingSpotRequestDTO,
   IFindOneParkingSpotResponseDTO,
-} from "./findone-parking-spot.dto";
+} from './findone-parking-spot.dto';
 
 @provide(FindOneParkingSpotUseCase)
 class FindOneParkingSpotUseCase {
   constructor(private parkingSpotRepository: ParkingSpotRepository) {}
 
   async execute(
-    payload: IFindOneParkingSpotRequestDTO,
+    payload: IFindOneParkingSpotRequestDTO
   ): Promise<IFindOneParkingSpotResponseDTO | null> {
     const s = await this.parkingSpotRepository.findOneWithRelationship(
-      payload.id,
+      payload.id
     );
 
     if (s) {
