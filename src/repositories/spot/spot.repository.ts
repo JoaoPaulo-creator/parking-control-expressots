@@ -11,7 +11,7 @@ class SpotRepository extends BaseRepository<Spot> {
     this.entityClass = Spot;
   }
 
-  async updateSpot(id: string, spotStatus: boolean): Promise<boolean | null> {
+  async updateSpot(id: string, spotStatus: boolean): Promise<Spot | null> {
     const repository = this.getRepository();
     const tableName = repository.metadata.tableName;
 
@@ -34,7 +34,7 @@ class SpotRepository extends BaseRepository<Spot> {
         .where("id = :id", { id: id })
         .execute();
 
-      return spotStatus;
+      return spotExists;
     }
 
     return null;
