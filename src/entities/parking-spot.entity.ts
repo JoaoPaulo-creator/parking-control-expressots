@@ -40,16 +40,6 @@ class ParkingSpot implements IEntity {
   @JoinColumn()
   spot?: Spot;
 
-  @Column({
-    nullable: true,
-  })
-  isAvailable?: boolean;
-
-  @Column({
-    nullable: true,
-  })
-  number?: number;
-
   constructor(
     apartment: string,
     block: string,
