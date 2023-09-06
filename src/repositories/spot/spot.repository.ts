@@ -15,14 +15,10 @@ class SpotRepository extends BaseRepository<Spot> {
     const repository = this.getRepository();
     const tableName = repository.metadata.tableName;
 
-    console.log(tableName);
-
     const spotExists = await repository
       .createQueryBuilder(tableName)
       .where(`${tableName}.id = :id`, { id })
       .getOne();
-
-    console.log(spotExists);
 
     if (spotExists) {
       repository
