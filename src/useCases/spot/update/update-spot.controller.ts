@@ -8,7 +8,10 @@ import {
   response,
 } from 'inversify-express-utils';
 import { UpdateSpotUseCase } from './update-spot.usecase';
-import { IUpdateSpotRequest, IUpdateSpotRequestParam } from './update-spot.dto';
+import {
+  IUpdateSpotRequestDTO,
+  IUpdateSpotRequestParam,
+} from './update-spot.dto';
 
 @controller('/spot')
 class UpadateSpotController extends BaseController {
@@ -16,10 +19,10 @@ class UpadateSpotController extends BaseController {
     super('update-spot-controller');
   }
 
-  @httpPatch('/:id')
+  @httpPut('/:id')
   async execute(
     @requestParam() id: IUpdateSpotRequestParam,
-    @requestBody() payload: IUpdateSpotRequest,
+    @requestBody() payload: IUpdateSpotRequestDTO,
     @response() res: any
   ) {
     return this.callUseCaseAsync(

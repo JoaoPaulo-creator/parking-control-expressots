@@ -2,10 +2,10 @@ interface IUpdateSpotRequestParam {
   id: string;
 }
 
-interface IUpdateSpotRequest {
+interface IUpdateSpotRequestDTO {
   id: string;
-  isAvailabe: boolean;
-  number: number;
+  number?: number;
+  isAvailabe?: boolean;
 }
 
 interface IUpdateSpotResponseDTO {
@@ -14,4 +14,8 @@ interface IUpdateSpotResponseDTO {
   number: number;
 }
 
-export { IUpdateSpotResponseDTO, IUpdateSpotRequest, IUpdateSpotRequestParam };
+export {
+  IUpdateSpotResponseDTO,
+  IUpdateSpotRequestDTO,
+  IUpdateSpotRequestParam,
+};

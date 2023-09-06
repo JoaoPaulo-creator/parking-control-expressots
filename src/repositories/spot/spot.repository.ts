@@ -9,7 +9,7 @@ class SpotRepository extends BaseRepository<Spot> {
     this.entityClass = Spot;
   }
 
-  async updateSpot(id: string, spotStatus: boolean): Promise<Spot | null> {
+  async updateSpot(id: string, item: Spot): Promise<Spot | null> {
     const repository = this.getRepository();
     const tableName = repository.metadata.tableName;
 
@@ -23,15 +23,39 @@ class SpotRepository extends BaseRepository<Spot> {
         .createQueryBuilder(tableName)
         .update(Spot)
         .set({
-          isAvailable: spotStatus,
+          isAvailable: item.isAvailable,
+          number: item.number,
         })
         .where('id = :id', { id: id })
+        .returning(['id'])
         .execute();
 
-      return spotExists;
+      return item;
     }
 
     return null;
+  }
+
+  async setAsUnavailable(id: string, status: boolean): Promise<void> {
+    const repository = this.getRepository();
+    const tableName = repository.metadata.tableName;
+
+    const spotExists = await repository
+      .createQueryBuilder(tableName)
+      .where(`${tableName}.id = :id`, { id })
+      .getOne();
+
+    if (spotExists) {
+      repository
+        .createQueryBuilder(tableName)
+        .update(Spot)
+        .set({
+          isAvailable: status,
+        })
+        .where('id = :id', { id: id })
+        .returning(['id'])
+        .execute();
+    }
   }
 }
 

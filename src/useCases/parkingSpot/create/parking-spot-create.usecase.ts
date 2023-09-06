@@ -8,6 +8,7 @@ import { ParkingSpot } from '@entities/parking-spot.entity';
 import { SpotRepository } from '@repositories/spot/spot.repository';
 import { AppError, StatusCode } from '@expressots/core';
 import { Report } from '@expressots/core';
+import { IUpdateSpotRequestDTO } from '@useCases/spot/update/update-spot.dto';
 
 @provide(CreateParkingSpotUseCase)
 class CreateParkingSpotUseCase {
@@ -16,9 +17,8 @@ class CreateParkingSpotUseCase {
     private spotRepository: SpotRepository
   ) {}
 
-  private async setSpotAsUnavailable(spotId: string, isAvailable: boolean) {
-    const spot = this.spotRepository.updateSpot(spotId, isAvailable);
-    return spot;
+  private async setSpotAsUnavailable(spotId: string, status: boolean) {
+    this.spotRepository.setAsUnavailable(spotId, status);
   }
 
   async execute(

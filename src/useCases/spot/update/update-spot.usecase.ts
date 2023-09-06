@@ -1,7 +1,7 @@
 import { SpotRepository } from '@repositories/spot/spot.repository';
 import { provide } from 'inversify-binding-decorators';
 import {
-  IUpdateSpotRequest,
+  IUpdateSpotRequestDTO,
   IUpdateSpotRequestParam,
   IUpdateSpotResponseDTO,
 } from './update-spot.dto';
@@ -12,22 +12,23 @@ class UpdateSpotUseCase {
 
   async execute(
     param: IUpdateSpotRequestParam,
-    payload: IUpdateSpotRequest
+    payload: IUpdateSpotRequestDTO
   ): Promise<{
     id: string;
     isAvailable: boolean | undefined;
     number: number | undefined;
   } | null> {
-    const spot = await this.spotRepository.updateSpot(
-      param.id,
-      payload.isAvailabe
-    );
+    console.log(payload);
+
+    const { id } = param;
+    const { number } = payload;
+    const spot = await this.spotRepository.updateSpot(id, payload);
 
     if (spot) {
       return {
         id: spot.id,
-        isAvailable: spot.isAvailable,
         number: spot.number,
+        isAvailable: spot.isAvailable,
       };
     }
     return null;
