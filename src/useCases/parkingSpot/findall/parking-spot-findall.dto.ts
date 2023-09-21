@@ -7,7 +7,7 @@ interface IFindAllParkingSpotsResponseDTO {
   licensePlate: string;
   modelCar: string;
   responsibleName: string;
-  spot?: SpotProps;
+  spot: SpotProps;
 }
 
 interface SpotProps {

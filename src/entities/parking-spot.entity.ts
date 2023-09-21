@@ -38,7 +38,7 @@ class ParkingSpot implements IEntity {
 
   @OneToOne(() => Spot)
   @JoinColumn()
-  spot?: Spot;
+  spot: Spot;
 
   constructor(
     apartment: string,
@@ -48,7 +48,7 @@ class ParkingSpot implements IEntity {
     licensePlate: string,
     modelCar: string,
     responsibleName: string,
-    spot?: Spot
+    spot: Spot
   ) {
     this.apartment = apartment;
     this.block = block;
