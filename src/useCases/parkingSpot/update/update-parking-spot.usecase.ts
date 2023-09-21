@@ -5,6 +5,7 @@ import {
   IUpdateParkingSpotRequestParamDTO,
   IUpdateParkingSpotResponseDTO,
 } from './update-parking-spot.dto';
+import { AppError, StatusCode, Report } from '@expressots/core';
 
 @provide(UpdateParkingSpotUseCase)
 class UpdateParkingSpotUseCase {
@@ -16,7 +17,15 @@ class UpdateParkingSpotUseCase {
   ): Promise<IUpdateParkingSpotResponseDTO | null> {
     const spot = await this.parkingSpotRepository.update(param.id, payload);
 
-    console.log(payload);
+    if (!spot) {
+      const err = new AppError(
+        StatusCode.NotFound,
+        'Spot not found',
+        'upadate-parking-spot-usecase'
+      );
+
+      Report.Error(err);
+    }
 
     if (spot) {
       return {
@@ -28,6 +37,11 @@ class UpdateParkingSpotUseCase {
         colorCar: spot.colorCar,
         licensePlate: spot.licensePlate,
         responsibleName: spot.responsibleName,
+        spot: {
+          id: spot.spot!.id,
+          isAvailable: spot.spot?.isAvailable,
+          number: spot.spot?.number,
+        },
       };
     }
 
