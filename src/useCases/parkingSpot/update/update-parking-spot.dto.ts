@@ -11,6 +11,13 @@ interface IUpdateParkingSpotRequestDTO {
   licensePlate: string;
   modelCar: string;
   responsibleName: string;
+  spot: SpotProps;
+}
+
+interface SpotProps {
+  id: string;
+  isAvailable?: boolean;
+  number?: number;
 }
 
 interface IUpdateParkingSpotResponseDTO {
@@ -22,6 +29,7 @@ interface IUpdateParkingSpotResponseDTO {
   licensePlate: string;
   modelCar: string;
   responsibleName: string;
+  spot: SpotProps;
 }
 
 export {
