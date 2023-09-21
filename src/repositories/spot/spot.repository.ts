@@ -18,13 +18,14 @@ class SpotRepository extends BaseRepository<Spot> {
       .where(`${tableName}.id = :id`, { id })
       .getOne();
 
+    const newSpotAvailabilityValue: boolean | undefined = item.isAvailable;
+
     if (spotExists) {
       repository
         .createQueryBuilder(tableName)
         .update(Spot)
         .set({
-          isAvailable: item.isAvailable,
-          number: item.number,
+          isAvailable: newSpotAvailabilityValue,
         })
         .where('id = :id', { id: id })
         .returning(['id'])

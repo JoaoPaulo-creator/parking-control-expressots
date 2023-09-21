@@ -21,7 +21,6 @@ class UpdateSpotUseCase {
     console.log(payload);
 
     const { id } = param;
-    const { number } = payload;
     const spot = await this.spotRepository.updateSpot(id, payload);
 
     if (spot) {

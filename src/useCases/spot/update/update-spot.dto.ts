@@ -4,7 +4,6 @@ interface IUpdateSpotRequestParam {
 
 interface IUpdateSpotRequestDTO {
   id: string;
-  number?: number;
   isAvailabe?: boolean;
 }
 

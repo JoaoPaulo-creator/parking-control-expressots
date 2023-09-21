@@ -19,7 +19,7 @@ class UpadateSpotController extends BaseController {
     super('update-spot-controller');
   }
 
-  @httpPut('/:id')
+  @httpPatch('/:id')
   async execute(
     @requestParam() id: IUpdateSpotRequestParam,
     @requestBody() payload: IUpdateSpotRequestDTO,
