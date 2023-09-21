@@ -7,7 +7,18 @@ class FindAllSpotsUseCase {
   constructor(private spotRepository: SpotRepository) {}
 
   async execute(): Promise<IFindAllSpotResponseDTO[]> {
-    return this.spotRepository.findAll();
+    const spots = await this.spotRepository.findAll();
+    const mappedSpots: IFindAllSpotResponseDTO[] = [];
+
+    spots.forEach((s) =>
+      mappedSpots.push({
+        id: s.id,
+        isAvailable: s.isAvailable,
+        number: s.number,
+      })
+    );
+
+    return mappedSpots;
   }
 }
 
