@@ -8,7 +8,6 @@ import { ParkingSpot } from '@entities/parking-spot.entity';
 import { SpotRepository } from '@repositories/spot/spot.repository';
 import { AppError, StatusCode } from '@expressots/core';
 import { Report } from '@expressots/core';
-import { IUpdateSpotRequestDTO } from '@useCases/spot/update/update-spot.dto';
 
 @provide(CreateParkingSpotUseCase)
 class CreateParkingSpotUseCase {
@@ -48,13 +47,13 @@ class CreateParkingSpotUseCase {
     const parkingSpot = await this.spotRepository.find(spot.id);
 
     if (!parkingSpot!.isAvailable) {
-      Report.Error(
-        new AppError(
-          StatusCode.UnprocessableEntity,
-          'Spot is not available',
-          'create-parking-spot-usecase'
-        )
+      const err = new AppError(
+        StatusCode.UnprocessableEntity,
+        'Spot is not available',
+        'create-parking-spot-usecase'
       );
+
+      Report.Error(err);
     }
 
     const isSpotSelected = await this.parkingRepository.create(spotInstance);
