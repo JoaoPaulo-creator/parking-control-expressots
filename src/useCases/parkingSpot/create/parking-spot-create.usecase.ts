@@ -17,7 +17,7 @@ class CreateParkingSpotUseCase {
   ) {}
 
   private async setSpotAsUnavailable(spotId: string, status: boolean) {
-    this.spotRepository.setAsUnavailable(spotId, status);
+    this.spotRepository.changeSpotStatus(spotId, status);
   }
 
   async execute(

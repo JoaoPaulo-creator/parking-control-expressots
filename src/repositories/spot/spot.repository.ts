@@ -37,7 +37,7 @@ class SpotRepository extends BaseRepository<Spot> {
     return null;
   }
 
-  async setAsUnavailable(id: string, status: boolean): Promise<void> {
+  async changeSpotStatus(id: string, status: boolean): Promise<void> {
     const repository = this.getRepository();
     const tableName = repository.metadata.tableName;
 
