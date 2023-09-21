@@ -22,12 +22,12 @@ class BaseRepository<T extends IEntity> implements IBaseRepository<T> {
     const repository = this.getRepository();
     const tableName = repository.metadata.tableName;
 
-    const spotExists = repository
+    const spotExists = await repository
       .createQueryBuilder(tableName)
       .where(`${tableName}.id = :id`, { id })
       .getOne();
 
-    if (await spotExists) {
+    if (spotExists) {
       repository
         .createQueryBuilder(tableName)
         .update(ParkingSpot)
