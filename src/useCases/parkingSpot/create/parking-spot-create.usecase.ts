@@ -34,19 +34,6 @@ class CreateParkingSpotUseCase {
       spot,
     } = payload;
 
-    const plateAlreadyReserved = await this.parkingRepository.findPlate(licensePlate)
-
-    if(plateAlreadyReserved) {
-      const err = new AppError(
-        StatusCode.BadRequest,
-        'Car already reserved a spot',
-        'create-parking-spot-usecase'
-      )
-
-      Report.Error(err)
-    }
-
-
     const spotInstance = new ParkingSpot(
       apartment,
       block,
