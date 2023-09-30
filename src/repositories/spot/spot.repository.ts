@@ -28,7 +28,6 @@ class SpotRepository extends BaseRepository<Spot> {
           isAvailable: newSpotAvailabilityValue,
         })
         .where('id = :id', { id: id })
-        .returning(['id'])
         .execute();
 
       return item;
