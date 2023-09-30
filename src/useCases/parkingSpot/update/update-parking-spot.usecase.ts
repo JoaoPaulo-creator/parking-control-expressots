@@ -23,7 +23,6 @@ class UpdateParkingSpotUseCase {
         'Spot not found',
         'upadate-parking-spot-usecase'
       );
-
       Report.Error(err);
     }
 

@@ -13,7 +13,7 @@ import {
   IUpdateSpotRequestParam,
 } from './update-spot.dto';
 
-@controller('/spot')
+@controller('/spot/update')
 class UpadateSpotController extends BaseController {
   constructor(private updateSpotUseCase: UpdateSpotUseCase) {
     super('update-spot-controller');

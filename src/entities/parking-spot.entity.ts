@@ -3,8 +3,7 @@ import { IEntity } from './base.entity';
 import {
   Column,
   Entity,
-  JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Spot } from './spot.entity';
@@ -36,8 +35,7 @@ class ParkingSpot implements IEntity {
   @Column()
   responsibleName!: string;
 
-  @OneToOne(() => Spot)
-  @JoinColumn()
+  @ManyToOne(() => Spot, (spot) => spot.id)
   spot: Spot;
 
   constructor(
