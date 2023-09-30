@@ -34,6 +34,19 @@ class CreateParkingSpotUseCase {
       spot,
     } = payload;
 
+    const plateAlreadyReserved = await this.parkingRepository.findPlate(licensePlate)
+
+    if(plateAlreadyReserved) {
+      const err = new AppError(
+        StatusCode.BadRequest,
+        'Car already reserved a spot',
+        'create-parking-spot-usecase'
+      )
+
+      Report.Error(err)
+    }
+
+
     const spotInstance = new ParkingSpot(
       apartment,
       block,
@@ -56,32 +69,32 @@ class CreateParkingSpotUseCase {
       Report.Error(err);
     }
 
-    const isSpotSelected = await this.parkingRepository.create(spotInstance);
+    const reservingSpot = await this.parkingRepository.create(spotInstance);
     let response: ICreateParkintSpotResponseDTO;
 
-    if (isSpotSelected) {
+    if (reservingSpot) {
       this.setSpotAsUnavailable(spot.id, false);
 
       response = {
-        id: isSpotSelected.id,
-        apartment: isSpotSelected.apartment,
-        block: isSpotSelected.block,
-        brandCar: isSpotSelected.brandCar,
-        colorCar: isSpotSelected.colorCar,
-        licensePlate: isSpotSelected.licensePlate,
-        modelCar: isSpotSelected.modelCar,
-        responsibleName: isSpotSelected.responsibleName,
+        id: reservingSpot.id,
+        apartment: reservingSpot.apartment,
+        block: reservingSpot.block,
+        brandCar: reservingSpot.brandCar,
+        colorCar: reservingSpot.colorCar,
+        licensePlate: reservingSpot.licensePlate,
+        modelCar: reservingSpot.modelCar,
+        responsibleName: reservingSpot.responsibleName,
         spot: {
-          id: isSpotSelected.spot!.id,
-          isAvailable: isSpotSelected.spot?.isAvailable,
-          number: isSpotSelected.spot?.number,
+          id: reservingSpot.spot!.id,
+          isAvailable: reservingSpot.spot?.isAvailable,
+          number: reservingSpot.spot?.number,
         },
       };
 
       return response;
     }
 
-    return isSpotSelected;
+    return reservingSpot;
   }
 }
 

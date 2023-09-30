@@ -9,6 +9,18 @@ class ParkingSpotRepository extends BaseRepository<ParkingSpot> {
     this.entityClass = ParkingSpot;
   }
 
+  async findPlate(plate: string) {
+    const repository = this.getRepository();
+    const tableName = repository.metadata.tableName;
+
+    const spotExists = await repository
+      .createQueryBuilder(tableName)
+      .where(`parking_spot.licensePlate = :licensePlate`, { licensePlate: plate })
+      .getOne();
+
+    return spotExists?.licensePlate ? true : false
+  }
+
   async findAllWithRelationship(): Promise<ParkingSpot[]> {
     const repository = this.getRepository();
     const spots = await repository
